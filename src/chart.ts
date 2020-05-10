@@ -29,7 +29,6 @@ export default function (htmlElement: HTMLElement) {
     ['Stock4', 10, '#95e9fd', '', 'Bank 4']
   ];
 
-  console.info(svgWidth, svgHeight, svg.clientWidth / 2);
   // Заполняем недостающие промежуточные цвета
   valArray = valArray.map(
     (
