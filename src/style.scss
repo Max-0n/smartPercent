@@ -1,17 +1,12 @@
 @import 'variables';
 
 body {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
   font-family: Gilroy, Helvetica, sans-serif;
   font-size: 14px;
   font-weight: 100;
   box-sizing: border-box;
-  height: 100vh;
   margin: 0;
-  padding: 50px;
+  padding: 0;
   transition: background-color .3s ease-in-out;
   background-color: $white;
 
@@ -22,6 +17,7 @@ body {
 
 .wrapper {
   display: flex;
+  justify-content: center;
 }
 
 figure {
@@ -33,4 +29,13 @@ figure {
     font-style: italic;
     color: $greyLight;
   }
+}
+
+#mainChart {
+  margin: auto;
+  max-width: 500px;
+  max-height: 500px;
+  width: 100vw;
+  height: auto;
+  @media (prefers-color-scheme: dark) { fill: $white; }
 }
