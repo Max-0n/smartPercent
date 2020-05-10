@@ -13,6 +13,7 @@ const config = {
     filename: "[name].[hash].bundle.js",
     path: path.resolve(__dirname, 'docs')
   },
+  devtool: 'inline-source-map',
   devServer: {
     port: 8080,
     overlay: {
