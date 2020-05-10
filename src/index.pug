@@ -14,6 +14,17 @@ html
       svg#mainChart(viewBox="0 0 500 500")
 
     form#form.wrapper
-      input(type="number", name="budget")
-      input(type="number", name="percent")
-      button(type="submit") Check
+      label.mdc-text-field.mdc-text-field--filled
+        span.mdc-text-field__ripple
+        input.mdc-text-field__input(type="text", aria-labelledby="my-label-id", name="one")
+        span#my-label-id.mdc-floating-label Hint text )))
+        span.mdc-line-ripple
+
+      label.mdc-text-field.mdc-text-field--filled
+        span.mdc-text-field__ripple
+        input.mdc-text-field__input(type="text", aria-labelledby="my-label", name="two")
+        span#my-label.mdc-floating-label Hint text :D
+        span.mdc-line-ripple
+
+      button.mdc-button.mdc-button--outlined(type="submit") Check
+        span.mdc-button__ripple

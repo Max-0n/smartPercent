@@ -1,6 +1,6 @@
 {
   "name": "SmartPercent",
-  "version": "0.1.0",
+  "version": "0.1.2",
   "description": "Percent calculator of stocks.",
   "repository": {
     "type": "git",
@@ -26,6 +26,7 @@
     "pug-lint": "^2.6.0",
     "pug-loader": "^2.4.0",
     "puglint-webpack-plugin": "^1.0.3",
+    "sass": "^1.26.5",
     "sass-lint": "^1.13.1",
     "sass-lint-webpack": "^1.0.2",
     "sass-loader": "^8.0.2",
@@ -36,5 +37,10 @@
     "webpack": "^4.43.0",
     "webpack-cli": "^3.3.11",
     "webpack-dev-server": "^3.11.0"
+  },
+  "dependencies": {
+    "@material/button": "^6.0.0",
+    "@material/ripple": "^6.0.0",
+    "@material/textfield": "^6.0.0"
   }
 }

@@ -1,4 +1,6 @@
 @import 'variables';
+@import '@material/button/mdc-button';
+@import '@material/textfield/mdc-text-field';
 
 body {
   font-family: Gilroy, Helvetica, sans-serif;
@@ -38,4 +40,14 @@ figure {
   width: 100vw;
   height: auto;
   @media (prefers-color-scheme: dark) { fill: $white; }
+}
+
+#form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  & > * {
+    margin: 12px auto;
+  }
 }
