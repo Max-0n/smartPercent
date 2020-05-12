@@ -10,9 +10,11 @@ body {
   margin: 0;
   padding: 0;
   transition: background-color .3s ease-in-out;
+  color: $black;
   background-color: $white;
 
   @media (prefers-color-scheme: dark) {
+    color: $white;
     background-color: $darkBlue;
   }
 }
@@ -40,6 +42,12 @@ figure {
   width: 100vw;
   height: auto;
   @media (prefers-color-scheme: dark) { fill: $white; }
+}
+
+#stats {
+  width: 100%;
+  max-width: 1000px;
+  height: 300px;
 }
 
 #form {

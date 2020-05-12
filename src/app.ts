@@ -2,6 +2,7 @@ require('./style.scss');
 import { MDCRipple } from '@material/ripple';
 import { MDCTextField } from '@material/textfield';
 import mainChart from './chart';
+require('./chartBars');
 const appName = require('../package.json').name;
 const form: HTMLFormElement = document.getElementById('form') as HTMLFormElement;
 
