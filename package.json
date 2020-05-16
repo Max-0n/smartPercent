@@ -1,6 +1,6 @@
 {
   "name": "SmartPercent",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "Percent calculator of stocks.",
   "repository": {
     "type": "git",
@@ -43,6 +43,7 @@
     "@material/button": "^6.0.0",
     "@material/ripple": "^6.0.0",
     "@material/textfield": "^6.0.0",
+    "axios": "^0.19.2",
     "chart.js": "^2.9.3"
   }
 }

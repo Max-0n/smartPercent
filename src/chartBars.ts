@@ -65,7 +65,11 @@ const myChart = new Chart(ctx, {
   options: {
     legend: { display: false },
     scales: {
+      xAxes: [{
+        display: false,
+      }],
       yAxes: [{
+        // display: false,
         ticks: {
           beginAtZero: true
         }

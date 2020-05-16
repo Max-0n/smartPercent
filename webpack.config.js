@@ -49,7 +49,7 @@ const config = {
           {
             loader: "tslint-loader",
             options: {
-              emitErrors: true,
+              emitErrors: false,
               fix: true,
             }
           }
@@ -103,6 +103,10 @@ const config = {
 module.exports = (env, argv) => {
   if (argv.mode === 'development') {}
   if (argv.mode === 'production') {
+    config.module.rules
+      .find(rule => String(rule.test) == String(/\.tsx?$/)).use
+      .find(rule => typeof rule === 'object' && rule.loader === 'tslint-loader')
+      .options.emitErrors = true;
     // config.plugins[1] = new HtmlWebpackPlugin({ template: './src/index.pug', inject: false });
   }
   return config;

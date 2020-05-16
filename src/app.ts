@@ -1,6 +1,7 @@
 require('./style.scss');
 import { MDCRipple } from '@material/ripple';
 import { MDCTextField } from '@material/textfield';
+import axios from './axios';
 import mainChart from './chart';
 require('./chartBars');
 const appName = require('../package.json').name;
@@ -19,3 +20,21 @@ mainChart(document.getElementById('mainChart'));
 form.onsubmit = (e: Event) => {
   e.preventDefault();
 };
+
+axios.get('get-chart', {
+    params: {
+      interval: '5m',
+      region: 'US',
+      symbol: 'AAPL',
+      lang: 'en',
+      range: '1d'
+    }
+  })
+  .then(function (response) {
+    // handle success
+    console.log(response);
+  })
+  .catch(function (error) {
+    // handle error
+    console.info(error);
+  });
