@@ -1,4 +1,5 @@
 import Chart from 'chart.js';
+import axios from './axios';
 
 const element = document.getElementById('stats') as HTMLCanvasElement;
 const ctx = element.getContext('2d');
@@ -24,56 +25,95 @@ for (let day = 1; debt > 0; day++) {
 }
 
 
-const myChart = new Chart(ctx, {
-  type: 'bar',
-  data: {
-    // labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange', 'Green', 'Purple', 'Orange'],
-    labels: dataTotal,
-    datasets: [
-      {
-        label: 'Total',
-        data: dataTotal,
-        backgroundColor: 'rgba(54, 162, 235, 0.2)',
-        // backgroundColor: [
-        //   'rgba(255, 99, 132, 0.2)',
-        //   'rgba(54, 162, 235, 0.2)',
-        //   'rgba(255, 206, 86, 0.2)',
-        //   'rgba(75, 192, 192, 0.2)',
-        //   'rgba(153, 102, 255, 0.2)',
-        //   'rgba(255, 159, 64, 0.2)'
-        // ],
-        borderColor: 'rgba(54, 162, 235, 1)',
-        // borderColor: [
-        //   'rgba(255, 99, 132, 1)',
-        //   'rgba(54, 162, 235, 1)',
-        //   'rgba(255, 206, 86, 1)',
-        //   'rgba(75, 192, 192, 1)',
-        //   'rgba(153, 102, 255, 1)',
-        //   'rgba(255, 159, 64, 1)'
-        // ],
-        borderWidth: 1
-      },
-      // {
-      //   label: 'Debt',
-      //   data: dataDebt,
-      //   backgroundColor: 'rgba(75, 192, 192, 0.2)',
-      //   borderColor: 'rgba(75, 192, 192, 1)',
-      //   borderWidth: 1
-      // }
-    ]
-  },
-  options: {
-    legend: { display: false },
-    scales: {
-      xAxes: [{
-        display: false,
-      }],
-      yAxes: [{
-        // display: false,
-        ticks: {
-          beginAtZero: true
-        }
-      }]
+axios.get('get-chart', {
+    params: {
+      interval: '1d',
+      region: 'US',
+      symbol: 'AAPL',
+      lang: 'en',
+      // lang: 'ru',
+      range: '2y'
     }
-  }
-});
+  })
+  .then(function (response) {
+    // handle success
+    console.info(response.data.chart.result[0]);
+    makeChart(
+      response.data.chart.result[0].timestamp,
+      response.data.chart.result[0].indicators.quote[0].close
+    );
+  })
+  .catch(function (error) {
+    // handle error
+    console.info(error);
+  });
+
+
+function makeChart(labels, data) {
+  return new Chart(ctx, {
+    type: 'line',
+    data: {
+      // labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange', 'Green', 'Purple', 'Orange'],
+      labels,
+      datasets: [
+        {
+          label: 'Total',
+          data,
+          backgroundColor: 'rgba(54, 162, 235, 0.2)',
+          // backgroundColor: [
+          //   'rgba(255, 99, 132, 0.2)',
+          //   'rgba(54, 162, 235, 0.2)',
+          //   'rgba(255, 206, 86, 0.2)',
+          //   'rgba(75, 192, 192, 0.2)',
+          //   'rgba(153, 102, 255, 0.2)',
+          //   'rgba(255, 159, 64, 0.2)'
+          // ],
+          borderColor: 'rgba(54, 162, 235, 1)',
+          // borderColor: [
+          //   'rgba(255, 99, 132, 1)',
+          //   'rgba(54, 162, 235, 1)',
+          //   'rgba(255, 206, 86, 1)',
+          //   'rgba(75, 192, 192, 1)',
+          //   'rgba(153, 102, 255, 1)',
+          //   'rgba(255, 159, 64, 1)'
+          // ],
+          borderWidth: 1
+        },
+        // {
+        //   label: 'Debt',
+        //   data: dataDebt,
+        //   backgroundColor: 'rgba(75, 192, 192, 0.2)',
+        //   borderColor: 'rgba(75, 192, 192, 1)',
+        //   borderWidth: 1
+        // }
+      ]
+    },
+    options: {
+      responsive: true,
+      elements: { point: { radius: 0, hoverRadius: 0 }, line: { tension: 0 } },
+      legend: { display: false },
+      scales: {
+        xAxes: [{
+          display: false,
+        }]
+      },
+      tooltips: {
+        mode: 'index',
+        intersect: false,
+        callbacks: {
+          title(tooltipItem) {
+            // console.log(data);
+            return '$' + Math.trunc(+tooltipItem[0].value * 100) / 100;
+          },
+          label(tooltipItem) {
+            return new Date(+tooltipItem.xLabel * 1000).toLocaleDateString();
+          }
+        }
+      },
+      hover: {
+        mode: 'nearest',
+        intersect: true
+      }
+    }
+  });
+}
