@@ -1,6 +1,31 @@
 import Chart from 'chart.js';
 import axios from './axios';
 
+Chart.defaults.LineWithLine = Chart.defaults.line;
+Chart.controllers.LineWithLine = Chart.controllers.line.extend({
+  draw(ease) {
+    Chart.controllers.line.prototype.draw.call(this, ease);
+
+    if (this.chart.tooltip._active && this.chart.tooltip._active.length) {
+      const activePoint = this.chart.tooltip._active[0];
+      const tmpCtx = this.chart.ctx;
+      const x = activePoint.tooltipPosition().x;
+      const topY = this.chart.legend.bottom;
+      const bottomY = this.chart.chartArea.bottom;
+
+      // draw line
+      tmpCtx.save();
+      tmpCtx.beginPath();
+      tmpCtx.moveTo(x, topY);
+      tmpCtx.lineTo(x, bottomY);
+      tmpCtx.lineWidth = 1;
+      tmpCtx.strokeStyle = 'rgba(54, 162, 235, 1)';
+      tmpCtx.stroke();
+      tmpCtx.restore();
+    }
+  }
+});
+
 const element = document.getElementById('stats') as HTMLCanvasElement;
 const ctx = element.getContext('2d');
 
@@ -51,7 +76,8 @@ axios.get('get-chart', {
 
 function makeChart(labels, data) {
   return new Chart(ctx, {
-    type: 'line',
+    // type: 'line',
+    type: 'LineWithLine',
     data: {
       // labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange', 'Green', 'Purple', 'Orange'],
       labels,
@@ -94,7 +120,26 @@ function makeChart(labels, data) {
       legend: { display: false },
       scales: {
         xAxes: [{
-          display: false,
+          display: false
+        }],
+        yAxes: [{
+          position: 'right',
+          gridLines: {
+            // lineWidth: 0,
+            // zeroLineWidth: 0,
+            drawBorder: false,
+            // drawTicks: false,
+            tickMarkLength: 0,
+            // lineWidth: 0,
+            // offsetGridLines: true,
+            color: 'rgba(54, 162, 235, 0.1)',
+            zeroLineColor: 'red'
+          },
+          ticks: {
+            padding: 10,
+            lineHeight: 1.1,
+            fontColor: 'rgba(54, 162, 235, 1)'
+          }
         }]
       },
       tooltips: {

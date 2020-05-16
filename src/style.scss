@@ -17,6 +17,12 @@ body {
     color: $white;
     background-color: $darkBlue;
   }
+
+  &.dark {
+    color: $white;
+    background-color: $darkBlue;
+    fill: $white;
+  }
 }
 
 .wrapper {
@@ -41,7 +47,7 @@ figure {
   max-height: 500px;
   width: 100vw;
   height: auto;
-  @media (prefers-color-scheme: dark) { fill: $white; }
+  // @media (prefers-color-scheme: dark) { fill: $white; }
 }
 
 #stats {
